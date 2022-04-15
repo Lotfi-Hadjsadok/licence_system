@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.rv-licences .title{
+    margin-top: 50px ;
+
+}
+.rv-licences table{
+    text-align: center;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 0 5px rgb(184, 183, 183);
+    border-collapse: collapse;
+}
+.rv-licences thead{
+    box-shadow: 0 0 5px rgb(184, 183, 183);
+}
+.rv-licences th{
+    font-weight: bold;
+    color: black;
+    padding: 1rem 2rem;
+}
+.rv-licences td{
+    padding: 1rem 2rem;
+}
