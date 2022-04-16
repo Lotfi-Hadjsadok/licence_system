@@ -56,15 +56,40 @@ class LicenceKey
         $query = "SELECT * FROM " . $this->table . " ORDER BY created_at;";
         return $this->wpdb->get_results($query);
     }
+
+    function deactivate_to_client(string $key)
+    {
+        $licence = $this->find($key);
+        $ch = curl_init($licence->website . '/wp-json/rv-licence/v1/deactivate');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        curl_close($ch);
+        return $this;
+    }
+
+    function activate_to_client(string $key)
+    {
+        $licence = $this->find($key);
+        $data = http_build_query(array(
+            'licence' => $key
+        ));
+        $ch = curl_init($licence->website . '/wp-json/rv-licence/v1/activate');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_exec($ch);
+    }
+
     function change_status(string $key)
     {
         $licence = $this->find($key);
         if ($licence->status == 'actif') {
-            $licence->status = 'inactive';
+            $this->update($key, $licence->website, 'inactive');
+            $this->deactivate_to_client($key);
         } else {
-            $licence->status = 'actif';
+            $this->update($key, $licence->website, 'actif');
+            $this->activate_to_client($key);
         }
-        $this->update($key, $licence->website, $licence->status);
     }
 
 
