@@ -10,7 +10,7 @@ class Rv_Licence_Admin_Api
     function licence_api_routing()
     {
         register_rest_route('rv-licence/v1', '/activate', array(
-            'methods' => 'GET',
+            'methods' => 'POST',
             'callback' => array(new LicenceKey, 'activate_licence')
         ));
     }

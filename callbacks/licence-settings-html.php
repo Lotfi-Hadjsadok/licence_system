@@ -11,6 +11,7 @@ $licences = (new LicenceKey)->findAll();
     <table>
         <thead>
             <tr>
+                <th></th>
                 <th>LICENCE KEY</th>
                 <th>ACTIF WEBSITE</th>
                 <th>STATUS</th>
@@ -19,6 +20,12 @@ $licences = (new LicenceKey)->findAll();
         <tbody>
             <?php foreach ($licences as $licence) : ?>
                 <tr>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="licence-key" value="<?= $licence->licence ?>">
+                            <input type="submit" name="licence-delete" value="&times;" class="licence-delete"></input>
+                        </form>
+                    </td>
                     <td>
                         <p class="licence-key"><?= $licence->licence ?></p>
                     </td>

@@ -62,3 +62,11 @@
 .rv-licences .status-toggler:checked + .slider::before{
     transform: translateX(36px);
 }
+.rv-licences .licence-delete{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: -4px;
+    font-size: 25px;
+    color: rgb(247, 72, 72);
+}

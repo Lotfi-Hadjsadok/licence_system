@@ -15,34 +15,10 @@ class LicenceKey
         $this->wpdb->query("CREATE TABLE IF NOT EXISTS  " . $this->table . " (
             licence VARCHAR(255) PRIMARY KEY,
             website VARCHAR(255),
-            status VARCHAR(255)
+            status VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )$charset_collate;");
-    }
-
-    function update(string $key, string $website = null, string $status = "inactive")
-    {
-        $licence = array(
-            'licence' => $key,
-            'website' => $website,
-            'status' => $status
-        );
-        $this->wpdb->replace($this->table, $licence, array('%s', '%s', '%s'));
-    }
-    function change_status(string $key)
-    {
-        $licence = $this->find($key);
-        if ($licence->status == 'actif') {
-            $licence->status = 'inactive';
-        } else {
-            $licence->status = 'actif';
-        }
-
-        $updated_licence = array(
-            'licence' => $key,
-            'website' => $licence->website,
-            'status' => $licence->status
-        );
-        $this->wpdb->replace($this->table, $updated_licence, array('%s', '%s', '%s'));
     }
     function create(string $key)
     {
@@ -54,6 +30,20 @@ class LicenceKey
         $this->wpdb->insert($this->table, $licence, array('%s', '%s', '%s'));
     }
 
+    function update(string $key, string $website = null, string $status = "inactive")
+    {
+        $updated_licence = array(
+            'website' => $website,
+            'status' => $status
+        );
+        $this->wpdb->update($this->table, $updated_licence, array('licence' => $key), array('%s', '%s'), array('%s'));
+    }
+
+    function delete($key)
+    {
+        $this->wpdb->delete($this->table, array('licence' => $key), '%s');
+    }
+
     function find($key)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE licence= %s ;";
@@ -63,9 +53,21 @@ class LicenceKey
 
     function findAll()
     {
-        $query = "SELECT * FROM " . $this->table . ";";
+        $query = "SELECT * FROM " . $this->table . " ORDER BY created_at;";
         return $this->wpdb->get_results($query);
     }
+    function change_status(string $key)
+    {
+        $licence = $this->find($key);
+        if ($licence->status == 'actif') {
+            $licence->status = 'inactive';
+        } else {
+            $licence->status = 'actif';
+        }
+        $this->update($key, $licence->website, $licence->status);
+    }
+
+
 
     function activate_licence($request)
     {
