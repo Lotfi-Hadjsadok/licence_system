@@ -8,6 +8,10 @@ class Rv_Licence_Enqueue_Scripts
     function enqueue_scripts()
     {
         wp_enqueue_style('rv-licence-style', PLUGIN_DIR_URL . 'src/css/admin.css', null, PLUGIN_VERSION);
+        wp_enqueue_script('rv-licence-status-toggler', PLUGIN_DIR_URL . 'src/js/LicenceStatusToggle.js', array('jquery'), PLUGIN_VERSION, true);
+        wp_localize_script('rv-licence-status-toggler', 'wpData', array(
+            'ajaxurl' => admin_url('admin-ajax.php')
+        ));
     }
 }
 new Rv_Licence_Enqueue_Scripts();

@@ -20,15 +20,22 @@ $licences = (new LicenceKey)->findAll();
             <?php foreach ($licences as $licence) : ?>
                 <tr>
                     <td>
-                        <p><?= $licence->licence ?></p>
+                        <p class="licence-key"><?= $licence->licence ?></p>
                     </td>
                     <td>
                         <p><?= ($licence->website ?? '......') ?></p>
                     </td>
                     <td>
-                        <p><?= $licence->status ?></p>
+                        <p class="licence-status"><?= $licence->status ?></p>
                     </td>
-                    <td><button>activate</button></td>
+                    <?php if ($licence->website) : ?>
+                        <td>
+                            <label class="switch">
+                                <input class="status-toggler" type="checkbox" <?php checked('actif', $licence->status); ?>>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         </tbody>

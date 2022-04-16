@@ -24,3 +24,41 @@
 .rv-licences td{
     padding: 1rem 2rem;
 }
+
+.rv-licences .switch{
+    position: relative;
+    display: block;
+    width: 70px;
+    height: 30px;
+}
+
+
+.rv-licences .slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #ccc;
+    transition: ease-in-out .2s;
+    border-radius: 34px;
+}
+.rv-licences input[type="checkbox"]{display: none;}
+.rv-licences .slider::before{
+    position: absolute;
+    content: '';
+    left: 5px;
+    top: 3px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    transition: ease-in-out .2s;
+    background-color: white;
+}
+.rv-licences .status-toggler:checked + .slider{
+    background-color: #2271b1;
+}
+.rv-licences .status-toggler:checked + .slider::before{
+    transform: translateX(36px);
+}

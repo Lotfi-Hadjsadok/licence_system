@@ -28,6 +28,22 @@ class LicenceKey
         );
         $this->wpdb->replace($this->table, $licence, array('%s', '%s', '%s'));
     }
+    function change_status(string $key)
+    {
+        $licence = $this->find($key);
+        if ($licence->status == 'actif') {
+            $licence->status = 'inactive';
+        } else {
+            $licence->status = 'actif';
+        }
+
+        $updated_licence = array(
+            'licence' => $key,
+            'website' => $licence->website,
+            'status' => $licence->status
+        );
+        $this->wpdb->replace($this->table, $updated_licence, array('%s', '%s', '%s'));
+    }
     function create(string $key)
     {
         $licence = array(
@@ -38,10 +54,10 @@ class LicenceKey
         $this->wpdb->insert($this->table, $licence, array('%s', '%s', '%s'));
     }
 
-    function find($licence)
+    function find($key)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE licence= %s ;";
-        $stmt = $this->wpdb->prepare($query, $licence);
+        $stmt = $this->wpdb->prepare($query, $key);
         return $this->wpdb->get_row($stmt);
     }
 
