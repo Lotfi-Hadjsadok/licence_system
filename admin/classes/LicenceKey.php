@@ -28,6 +28,15 @@ class LicenceKey
         );
         $this->wpdb->replace($this->table, $licence, array('%s', '%s', '%s'));
     }
+    function create(string $key)
+    {
+        $licence = array(
+            'licence' => $key,
+            'website' => null,
+            'status' => 'inactive'
+        );
+        $this->wpdb->insert($this->table, $licence, array('%s', '%s', '%s'));
+    }
 
     function find($licence)
     {

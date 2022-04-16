@@ -10,7 +10,7 @@ class Rv_Licence_Admin
         if (isset($_POST['rv_licence_key']) && !empty($_POST['rv_licence_key'])) {
             $key = $_POST['rv_licence_key'];
             $licence_key = new LicenceKey();
-            $licence_key->update($key);
+            $licence_key->create($key);
         }
     }
 }
