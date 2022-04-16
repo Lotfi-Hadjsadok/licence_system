@@ -22,6 +22,7 @@ require_once PLUGIN_DIR . 'utils/menu-pages.php';
 
 // CLASSES
 require_once PLUGIN_DIR . 'admin/classes/LicenceKey.php';
+require_once PLUGIN_DIR . 'admin/classes/LicenceFileGenerator.php';
 
 // ADMIN CLASSES
 require_once PLUGIN_DIR . 'admin/rv-enqueue-scripts.php';

@@ -6,6 +6,9 @@ $licences = (new LicenceKey)->findAll();
     <input name="rv_licence_key" type="text" placeholder="Add New Licence">
     <button class="button button-primary">Submit</button>
 </form>
+<form style="margin-top: 20px;" method="POST">
+    <input type="submit" name="rv-generate-licence" value="Generate Licence Code" class="button button-primary"></input>
+</form>
 <div class="rv-licences">
     <h1 class="title">All Licences</h1>
     <table>
