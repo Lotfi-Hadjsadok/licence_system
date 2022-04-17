@@ -9,16 +9,22 @@ class LicenceKey
         global $wpdb;
         $this->wpdb = $wpdb;
         $this->table = $wpdb->prefix . 'rvlicences';
-        $charset_collate = $wpdb->get_charset_collate();
+    }
+    function create_table()
+    {
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        $charset_collate = $this->wpdb->get_charset_collate();
 
         // CREATE TABLE IF NOT EXISTS
-        $this->wpdb->query("CREATE TABLE IF NOT EXISTS  " . $this->table . " (
-            licence VARCHAR(255) PRIMARY KEY,
-            website VARCHAR(255),
-            status VARCHAR(255),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            )$charset_collate;");
+        $query = "CREATE TABLE IF NOT EXISTS  " . $this->table . " (
+        licence VARCHAR(255) PRIMARY KEY,
+        website VARCHAR(255),
+        status VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )$charset_collate;";
+
+        dbDelta($query);
     }
     function create(string $key)
     {

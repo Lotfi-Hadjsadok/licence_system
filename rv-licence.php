@@ -29,3 +29,6 @@ require_once PLUGIN_DIR . 'admin/rv-enqueue-scripts.php';
 require_once PLUGIN_DIR . 'admin/rv-admin-menu.php';
 require_once PLUGIN_DIR . 'admin/rv-admin.php';
 require_once PLUGIN_DIR . 'admin/rv-admin-api.php';
+
+// ACTIVATION HOOK
+require_once PLUGIN_DIR . 'admin/rv-plugin-activation.php';
